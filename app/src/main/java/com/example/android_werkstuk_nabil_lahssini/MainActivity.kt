@@ -3,8 +3,7 @@ package com.example.android_werkstuk_nabil_lahssini
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.android_werkstuk_nabil_lahssini.Entities.Movie
@@ -24,10 +23,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //searchMovies("Spider")
+        val searchbutton = findViewById<Button>(R.id.searchButton)
+        val searchtext = findViewById<EditText>(R.id.searchText)
+        searchbutton.setOnClickListener {
+            val search = searchtext.text.toString()
+            searchMovies(search)
+        }
     }
 
     fun searchMovies(query: String) {
+        val listview = findViewById<ListView>(R.id.listView)
+        val contextss = this
+        var titles = arrayListOf<String>()
+        var descriptions = arrayListOf<String>()
         val retro = Retrofit.Builder()
             .baseUrl(URL_MOVIE_API)
             .addConverterFactory(MoshiConverterFactory.create())
@@ -37,12 +45,23 @@ class MainActivity : AppCompatActivity() {
         moviereq.enqueue(object : Callback<Results> {
             override fun onResponse(call: Call<Results>, response: Response<Results>){
                 val allMovies = response.body()
-                Log.v(MainActivity::class.simpleName, allMovies!!.results[0].overview)
+                for (movie in allMovies!!.results){
+                    titles.add(movie.title)
+                    descriptions.add(movie.overview)
+                }
+                val myListAdapter = MyListAdapter(contextss, title = titles, description = descriptions)
+                for (title in titles){
+                    Log.i(MainActivity::class.simpleName, title)
+                }
+                listview.adapter = myListAdapter
             }
             override fun onFailure(call: Call<Results>, t: Throwable) {
                 Log.i(MainActivity::class.simpleName, "on FAILURE!!!!")
             }
+
         })
+
+
     }
 
 }
