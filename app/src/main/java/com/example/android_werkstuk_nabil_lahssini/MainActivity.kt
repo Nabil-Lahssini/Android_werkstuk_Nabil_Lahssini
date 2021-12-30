@@ -16,6 +16,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MainActivity : AppCompatActivity() {
+    lateinit var listview : ListView
 
     companion object  {
         const val URL_MOVIE_API ="https://api.themoviedb.org"
@@ -25,16 +26,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val searchtext = findViewById<EditText>(R.id.searchText)
+        listview = findViewById<ListView>(R.id.listView)
         searchtext.addTextChangedListener {
             val search = searchtext.text.toString()
             if (search.isNotEmpty() && search.isNotBlank()) {
                 searchMovies(search)
+            }else{
+                val myListAdapter = MyListAdapter(this, title = arrayListOf<String>(), description = arrayListOf<String>())
+                listview.adapter = myListAdapter
             }
         }
     }
 
     fun searchMovies(query: String) {
-        val listview = findViewById<ListView>(R.id.listView)
         val contextss = this
         var titles = arrayListOf<String>()
         var descriptions = arrayListOf<String>()
@@ -52,9 +56,6 @@ class MainActivity : AppCompatActivity() {
                     descriptions.add(movie.overview)
                 }
                 val myListAdapter = MyListAdapter(contextss, title = titles, description = descriptions)
-                for (title in titles){
-                    Log.i(MainActivity::class.simpleName, title)
-                }
                 listview.adapter = myListAdapter
             }
             override fun onFailure(call: Call<Results>, t: Throwable) {
