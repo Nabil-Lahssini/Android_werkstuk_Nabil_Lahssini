@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.android_werkstuk_nabil_lahssini.Entities.Movie
@@ -23,11 +24,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val searchbutton = findViewById<Button>(R.id.searchButton)
         val searchtext = findViewById<EditText>(R.id.searchText)
-        searchbutton.setOnClickListener {
+        searchtext.addTextChangedListener {
             val search = searchtext.text.toString()
-            searchMovies(search)
+            if (search.isNotEmpty() && search.isNotBlank()) {
+                searchMovies(search)
+            }
         }
     }
 
