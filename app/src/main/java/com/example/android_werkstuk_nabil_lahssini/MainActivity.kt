@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.android_werkstuk_nabil_lahssini.Entities.Movie
 import com.example.android_werkstuk_nabil_lahssini.Entities.Results
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,7 +29,11 @@ class MainActivity : AppCompatActivity() {
         searchtext.addTextChangedListener {
             val search = searchtext.text.toString()
             if (search.isNotEmpty() && search.isNotBlank()) {
-                searchMovies(search)
+                //searchMovies(search)
+                val runnable = Runnable {
+                    searchMovies(searchtext.text.toString())
+                }
+                runnable.run()
             }else{
                 val myListAdapter = MyListAdapter(this, title = arrayListOf<String>(), description = arrayListOf<String>())
                 listview.adapter = myListAdapter
@@ -67,10 +68,7 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<Results>, t: Throwable) {
                 Log.i(MainActivity::class.simpleName, "on FAILURE!!!!")
             }
-
         })
-
-
     }
 
 }
