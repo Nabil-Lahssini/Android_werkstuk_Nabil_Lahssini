@@ -1,5 +1,6 @@
 package com.example.android_werkstuk_nabil_lahssini
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val searchtext = findViewById<EditText>(R.id.searchText)
+        val dashboardButton = findViewById<Button>(R.id.dashboardButton)
         listview = findViewById<ListView>(R.id.listView)
         searchtext.addTextChangedListener {
             val search = searchtext.text.toString()
@@ -35,6 +37,10 @@ class MainActivity : AppCompatActivity() {
                 val myListAdapter = MyListAdapter(this, title = arrayListOf<String>(), description = arrayListOf<String>())
                 listview.adapter = myListAdapter
             }
+        }
+        dashboardButton.setOnClickListener {
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
         }
     }
 
