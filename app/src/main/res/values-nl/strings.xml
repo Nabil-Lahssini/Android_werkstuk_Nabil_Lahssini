@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android_werkstuk_Nabil_Lahssini</string>
+    <string name="title_home">Huis</string>
+    <string name="title_notifications">Notificaties</string>
+    <string name="succes_message">SUCCES</string>
+    <string name="filaed_message">MISLUKT</string>
+    <string name="already_added">Al toegevoegd</string>
+    <string name="addButton">Toevoegen</string>
+    <string name="search_hint">Zoeken...</string>
+</resources>

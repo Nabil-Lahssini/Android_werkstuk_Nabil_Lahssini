@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name" translatable="false">Android_werkstuk_Nabil_Lahssini</string>
-    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_activity_dashboard" translatable="false">Dashboard</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="succes_message">SUCCESS</string>
     <string name="filaed_message">FAILED</string>
     <string name="already_added">Already added</string>
+    <string name="addButton">Add</string>
+    <string name="search_hint">Search...</string>
 </resources>

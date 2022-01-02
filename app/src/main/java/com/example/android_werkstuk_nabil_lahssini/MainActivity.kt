@@ -1,5 +1,6 @@
 package com.example.android_werkstuk_nabil_lahssini
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,6 +30,7 @@ import org.w3c.dom.Text
 class MainActivity : AppCompatActivity() {
     lateinit var listview : ListView
     val db : DatabaseHelper = DatabaseHelper(this)
+    lateinit var builder : AlertDialog.Builder
     companion object  {
         const val URL_MOVIE_API ="https://api.themoviedb.org"
         const val API_KEY = "6bb070fa1158aaf98c19a06bb4ce9284"
@@ -58,17 +60,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
         dashboardButton.setOnClickListener {
-            val intent = Intent(this, DashboardActivity::class.java)
-            startActivity(intent)
+            finish()
         }
-
-        listview.setOnItemClickListener { parent, view, position, id ->
-            val title = parent.getItemAtPosition(position)// The item that was clicked
-            Toast.makeText(this, title.toString(), Toast.LENGTH_SHORT).show()
-        }
-
     }
-
+/*    fun confirmDialog(){
+        TODO()
+        builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.delete_all_title))
+        builder.setMessage(getString(R.string.sure_delete_all))
+        builder.setPositiveButton(getString(R.string.yes_delete_all)) { dialog, which ->
+            db.deleteAllData()
+            intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        builder.setNegativeButton(getString(R.string.no_delete_all)) { dialog, which ->
+        }
+        builder.create().show()
+    }*/
     fun searchMovies(query: String) {
         val contextss = this
         var ids = arrayListOf<Int>()

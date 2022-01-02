@@ -9,6 +9,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.android_werkstuk_nabil_lahssini.Entities.DbMovie;
+import com.example.android_werkstuk_nabil_lahssini.Entities.Movie;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     private Context context;
     private static final String DATABASE_NAME = "my_db.db";
@@ -61,7 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
-    public Cursor readAllData() {
+    public ArrayList<DbMovie> readAllData() {
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -69,15 +75,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (db != null) {
             cursor = db.rawQuery(query, null);
         }
-        return cursor;
+        ArrayList<DbMovie> movies = new ArrayList<DbMovie>();
+        if (cursor.moveToFirst()) {
+            do {
+                movies.add(new DbMovie(cursor.getInt(0), cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4)));
+            } while (cursor.moveToNext());
+        }
+        return movies;
     }
     public void deleteOneRow(String row_id) {
+        System.out.println(row_id);
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
         if (result == -1) {
-            Toast.makeText(context, context.getString(R.string.succes_message), Toast.LENGTH_SHORT).show();
-        } else {
             Toast.makeText(context, context.getString(R.string.filaed_message), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, context.getString(R.string.succes_message), Toast.LENGTH_SHORT).show();
         }
     }
 
