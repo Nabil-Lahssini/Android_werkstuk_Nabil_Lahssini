@@ -8,4 +8,6 @@
     <string name="already_added">Al toegevoegd</string>
     <string name="addButton">Toevoegen</string>
     <string name="search_hint">Zoeken...</string>
+    <string name="watchtime1">"Je hebt "</string>
+    <string name="watchtime2">uur aan films gekeken !</string>
 </resources>

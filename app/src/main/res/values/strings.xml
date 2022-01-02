@@ -9,4 +9,6 @@
     <string name="already_added">Already added</string>
     <string name="addButton">Add</string>
     <string name="search_hint">Search...</string>
+    <string name="watchtime1">"You've watched "</string>
+    <string name="watchtime2">hours of movies !</string>
 </resources>
