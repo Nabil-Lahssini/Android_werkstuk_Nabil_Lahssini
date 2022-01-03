@@ -1,6 +1,7 @@
 package com.example.android_werkstuk_nabil_lahssini.ui.dashboard
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.example.android_werkstuk_nabil_lahssini.databinding.FragmentDashboard
 class DashboardFragment : Fragment() {
     private lateinit var dashboardViewModel: DashboardViewModel
     private var _binding: FragmentDashboardBinding? = null
+    lateinit var builder : AlertDialog.Builder
 
     lateinit var listview: ListView;
     // This property is only valid between onCreateView and
@@ -39,22 +41,33 @@ class DashboardFragment : Fragment() {
         val addbutton = binding.root.findViewById<Button>(R.id.addButton)
         addbutton.setOnClickListener {
             val intent = Intent(this.context as Activity, MainActivity::class.java)
+            intent.putExtra("data", "Data passed successfully !")
             startActivity(intent)
         }
         val db : DatabaseHelper = DatabaseHelper(this.context as Activity)
         listview.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                var id = view.findViewById(R.id.id) as TextView
-                val result  = db.deleteOneRow(
-                    id.text as String
-                )
-                if (result == -1L) {
-                    Toast.makeText(context, context?.getString(R.string.filaed_message), Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, context?.getString(R.string.succes_message), Toast.LENGTH_SHORT).show()
+                    builder = AlertDialog.Builder(context)
+                    builder.setTitle("Delete movie")
+                    builder.setMessage("Are you sure you want to delete this movie from your database?")
+                    builder.setPositiveButton("Delete") { dialog, which ->
+                        var id = view.findViewById(R.id.id) as TextView
+                        val result  = db.deleteOneRow(
+                            id.text as String
+                        )
+                        if (result == -1L) {
+                            Toast.makeText(context, context?.getString(R.string.filaed_message), Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, context?.getString(R.string.succes_message), Toast.LENGTH_SHORT).show()
+                        }
+                        refresh()
+                    }
+                    builder.setNegativeButton("Cancel") { dialog, which ->
+                    }
+                    builder.create().show()
                 }
-                refresh()
-            }
+
+
         val root: View = binding.root
         return root
     }

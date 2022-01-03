@@ -30,7 +30,6 @@ import org.w3c.dom.Text
 class MainActivity : AppCompatActivity() {
     lateinit var listview : ListView
     val db : DatabaseHelper = DatabaseHelper(this)
-    lateinit var builder : AlertDialog.Builder
     companion object  {
         const val URL_MOVIE_API ="https://api.themoviedb.org"
         const val API_KEY = "6bb070fa1158aaf98c19a06bb4ce9284"
@@ -40,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val searchtext = findViewById<EditText>(R.id.searchText)
         val dashboardButton = findViewById<Button>(R.id.dashboardButton)
+        val passedData = intent.getStringExtra("data")
+        println(passedData)
         listview = findViewById<ListView>(R.id.listView)
         searchtext.addTextChangedListener {
             val search = searchtext.text.toString()
@@ -63,21 +64,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
     }
-/*    fun confirmDialog(){
-        TODO()
-        builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.delete_all_title))
-        builder.setMessage(getString(R.string.sure_delete_all))
-        builder.setPositiveButton(getString(R.string.yes_delete_all)) { dialog, which ->
-            db.deleteAllData()
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        builder.setNegativeButton(getString(R.string.no_delete_all)) { dialog, which ->
-        }
-        builder.create().show()
-    }*/
+
     fun searchMovies(query: String) {
         val contextss = this
         var ids = arrayListOf<Int>()
