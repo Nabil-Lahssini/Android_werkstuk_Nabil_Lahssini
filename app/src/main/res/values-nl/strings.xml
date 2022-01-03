@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Android_werkstuk_Nabil_Lahssini</string>
     <string name="title_home">Huis</string>
     <string name="title_notifications">Notificaties</string>
     <string name="succes_message">SUCCES</string>

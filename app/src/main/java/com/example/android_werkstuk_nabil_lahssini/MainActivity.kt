@@ -111,11 +111,16 @@ class MainActivity : AppCompatActivity() {
                         val overview = view.findViewById(R.id.description) as TextView
                         val release_date = view.findViewById(R.id.release_date) as TextView
                         val runtime = view.findViewById(R.id.runtime) as TextView
-                        db.addMovie(id.text.toString().toInt(),
+                        val result = db.addMovie(id.text.toString().toInt(),
                             title.text.toString(),
                             overview.text.toString(),
                             runtime.text.toString().toInt(),
                             release_date.text.toString())
+                        if (result == -1L) {
+                            Toast.makeText(contextss, contextss.getString(R.string.already_added), Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(contextss, contextss.getString(R.string.succes_message), Toast.LENGTH_SHORT).show()
+                        }
                     }
             }
             override fun onFailure(call: Call<Results>, t: Throwable) {

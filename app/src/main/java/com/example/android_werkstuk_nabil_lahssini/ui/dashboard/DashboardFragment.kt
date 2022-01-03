@@ -45,9 +45,14 @@ class DashboardFragment : Fragment() {
         listview.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 var id = view.findViewById(R.id.id) as TextView
-                db.deleteOneRow(
+                val result  = db.deleteOneRow(
                     id.text as String
                 )
+                if (result == -1L) {
+                    Toast.makeText(context, context?.getString(R.string.filaed_message), Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, context?.getString(R.string.succes_message), Toast.LENGTH_SHORT).show()
+                }
                 refresh()
             }
         val root: View = binding.root

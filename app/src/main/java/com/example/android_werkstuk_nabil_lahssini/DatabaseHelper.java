@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_RELEASEDATE + " TEXT);";
         db.execSQL(query);
     }
-    void addMovie(int id, String title, String overview, int runtime, String release_date){
+    long addMovie(int id, String title, String overview, int runtime, String release_date){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_ID, id);
@@ -59,11 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } catch (SQLiteConstraintException e){
             result = -1;
         }
-        if (result == -1) {
-            Toast.makeText(context, context.getString(R.string.already_added), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, context.getString(R.string.succes_message), Toast.LENGTH_SHORT).show();
-        }
+        return result;
     }
 
 
@@ -89,15 +85,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return movies;
     }
-    public void deleteOneRow(String row_id) {
+    public long deleteOneRow(String row_id) {
         System.out.println(row_id);
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
-        if (result == -1) {
-            Toast.makeText(context, context.getString(R.string.filaed_message), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, context.getString(R.string.succes_message), Toast.LENGTH_SHORT).show();
-        }
+        return result;
     }
 
     public void deleteAllData() {
