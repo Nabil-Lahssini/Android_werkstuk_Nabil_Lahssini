@@ -3,7 +3,9 @@ package com.example.android_werkstuk_nabil_lahssini;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
@@ -51,8 +53,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_OVERVIEW, overview);
         cv.put(COLUMN_RUNTIME, runtime);
         cv.put(COLUMN_RELEASEDATE, release_date);
-
-        long result = db.insert(TABLE_NAME,null, cv);
+        long result;
+        try{
+            result = db.insertOrThrow(TABLE_NAME,null, cv);
+        } catch (SQLiteConstraintException e){
+            result = -1;
+        }
         if (result == -1) {
             Toast.makeText(context, context.getString(R.string.already_added), Toast.LENGTH_SHORT).show();
         } else {

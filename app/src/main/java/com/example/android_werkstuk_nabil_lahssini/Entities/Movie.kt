@@ -18,7 +18,8 @@ data class Movie(
     val production_countries : List<Production_countries>,
     val release_date : String,
     val revenue : Int,
-    val runtime : Int = 90,
+    var _runtime : Int = 90
+    ,
     val spoken_languages : List<Spoken_languages>,
     val status : String,
     val tagline : String,
@@ -26,5 +27,7 @@ data class Movie(
     val video : Boolean,
     val vote_average : Double,
     val vote_count : Int
-
-)
+){
+    val runtime: Int
+    get() = if (_runtime == 0) 90 else _runtime
+}

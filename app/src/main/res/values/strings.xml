@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Android_werkstuk_Nabil_Lahssini</string>
+    <string name="app_name" translatable="false">Movie counter</string>
     <string name="title_activity_dashboard" translatable="false">Dashboard</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard" translatable="false">Dashboard</string>
@@ -11,4 +11,5 @@
     <string name="search_hint">Search...</string>
     <string name="watchtime1">"You've watched "</string>
     <string name="watchtime2">hours of movies !</string>
+    <string name="taptodel">Tap a movie to delete it !</string>
 </resources>
